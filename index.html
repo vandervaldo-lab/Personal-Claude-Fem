@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#8B1A4A" />
+  <meta name="description" content="Programa de Treino Feminino — Emagrecimento, definição muscular e glúteos." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Meu Treino" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <title>Meu Treino Feminino — v2.2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="pt" id="app">
+    <header class="pt-header">
+      <h1>Programa de Treino</h1>
+      <p>45 anos · 80 kg · 175 cm · Emagrecimento · Definição · Glúteos</p>
+    </header>
+
+    <div class="pt-phase-bar" role="group" aria-label="Selecionar fase">
+      <button class="pt-pb active" onclick="setPhase(0)">Fase 1<span>Dias 1–30 · Estímulo e Força</span></button>
+      <button class="pt-pb" onclick="setPhase(1)">Fase 2<span>Dias 31–60 · Hipertrofia</span></button>
+      <button class="pt-pb" onclick="setPhase(2)">Fase 3<span>Dias 61–90 · Recomposição</span></button>
+    </div>
+
+    <div class="pt-tabs" role="tablist">
+      <button class="pt-tab active" role="tab" aria-selected="true" onclick="setMainTab('treino')">
+        <i class="ti ti-barbell" aria-hidden="true"></i> Treino
+      </button>
+      <button class="pt-tab" role="tab" aria-selected="false" onclick="setMainTab('evolucao')">
+        <i class="ti ti-chart-line" aria-hidden="true"></i> Evolução
+      </button>
+    </div>
+
+    <div id="tab-treino">
+      <nav class="pt-nav" aria-label="Dias da semana" id="dayNav"></nav>
+      <main id="dayContent"></main>
+    </div>
+
+    <div id="tab-evolucao" class="hidden">
+      <div class="pt-evo">
+        <div class="pt-evo-sel">
+          <label for="evoSelect">Exercício:</label>
+          <select id="evoSelect" onchange="renderEvo()"></select>
+        </div>
+        <div id="evoContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="pt-mb" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="closeModal(event)">
+    <div class="pt-modal">
+      <div class="pt-mh" id="modalHeader">
+        <h3 id="modalTitle"></h3>
+        <button class="pt-mc" onclick="closeModalDirect()" aria-label="Fechar">×</button>
+      </div>
+      <div class="pt-mt" role="tablist">
+        <button class="pt-tbt active" role="tab" onclick="switchModalTab('instrucoes')">Instrução técnica</button>
+        <button class="pt-tbt" role="tab" onclick="switchModalTab('foto')">Foto do exercício</button>
+      </div>
+      <div class="pt-mbody">
+        <div id="mtab-instrucoes">
+          <div class="pt-pbox">
+            <i class="ti ti-barbell" aria-hidden="true"></i>
+            <span id="modalPrescription"></span>
+          </div>
+          <p class="pt-mtext" id="modalInstrucoes"></p>
+        </div>
+        <div id="mtab-foto" class="hidden">
+          <div id="photoContainer" class="pt-photo-container">
+            <div class="pt-photo-loading">
+              <i class="ti ti-photo-search" aria-hidden="true"></i>
+              <p>Buscando foto…</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="pt-toast" id="toast" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
